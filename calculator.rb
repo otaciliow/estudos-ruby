@@ -57,10 +57,15 @@ loop do
         when "3"
             num1 * num2
         when "4"
-            num1 / num2
+            num2 == 0 ? "Erro: divisão por zero" : num1 / num2
         end
+
+    if resultado.is_a?(Numeric)
+        puts "Resultado: #{resultado.round(2)}"
+    else
+        puts resultado
+    end
     
-    puts "Resultado: #{resultado}"
     puts
 end
 
