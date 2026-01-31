@@ -1,23 +1,54 @@
-puts "Calculadora em Ruby (Soma)"
+def menu
+    puts "x---------------------x"
+    puts "| Calculadora em Ruby |"
+    puts "x---------------------x"
+    puts
+    puts "1 - Soma"
+    puts "2 - Subtração"
+    puts "3 - Multiplicação"
+    puts "4 - Divisão"
+    puts "5 - Sair"
+    puts
+    print "Selecione a operação que deseja utilizar: "
+end
 
-puts "Selecione a operação que deseja utilizar:"
-puts "1 - Soma"
-puts "2 - Subtração"
-puts "3 - Multiplicação"
-puts "4 - Divisão"
-puts "5 - Sair\n "
+def pedir_valor(mensagem)
+    print mensagem
+    gets.chomp().to_f
+end
 
-opcao = gets.chomp()
+def exibir_opcao_selecionada(mensagem)
+    puts
+    puts mensagem
+    puts
+end
 
-if opcao != "5"
+loop do
+    menu
+    opcao = gets.chomp
 
-    print "Digite o primeiro valor: "
-    num1 = gets.chomp().to_f
+    mensagem = 
+        case opcao
+        when "1"
+            "Cálculo de soma"
+        when "2"
+            "Cálculo de subtração"
+        when "3"
+            "Cálculo de multiplicação"
+        when "4"
+            "Cálculo de divisão"
+        when "5"
+            break
+        else
+            "Opção inválida!"
+        end
 
-    print "Digite o segundo valor: "
-    num2 = gets.chomp().to_f
+    exibir_opcao_selecionada(mensagem)
+    
+    num1 = pedir_valor("Digite o primeiro valor: ")
+    num2 = pedir_valor("Digite o segundo valor: ")
 
-    resultado = 
+    resultado =
         case opcao
         when "1"
             num1 + num2
@@ -27,15 +58,11 @@ if opcao != "5"
             num1 * num2
         when "4"
             num1 / num2
-        else
-            puts "Opção inválida!"
         end
-
+    
     puts "Resultado: #{resultado}"
     puts
 end
 
-if opcao == "5"
-    puts "Programa encerrado!"
-    return
-end
+puts
+puts "Programa encerrado!"
