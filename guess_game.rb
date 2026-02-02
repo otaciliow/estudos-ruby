@@ -38,11 +38,9 @@ while guess != secret_word and !out_of_guesses
     guess = gets.chomp()
     guess_count += 1
 
-    if guess != secret_word
-      available_indexes = (0...secret_word.length).to_a - revealed_indexes
-      revealed_indexes << available_indexes.sample unless available_indexes.empty?
-    end
-    
+    available_indexes = (0...secret_word.length).to_a - revealed_indexes
+    revealed_indexes << available_indexes.sample unless available_indexes.empty?
+
   else
     out_of_guesses = true
   end
