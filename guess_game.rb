@@ -1,9 +1,21 @@
 secret_word = "opa"
 guess = ""
+guess_count = 0
+guess_limit = 3
+out_of_guesses = false
 
-while guess != secret_word
-  print ("Digite a palavra: ")
-  guess = gets.chomp()
+while guess != secret_word and !out_of_guesses
+  if guess_count < guess_limit
+    print ("Digite a palavra: ")
+    guess = gets.chomp()
+    guess_count += 1
+  else
+    out_of_guesses = true
+  end
 end
 
-puts "Você acertou!"
+if out_of_guesses
+  puts "Suas tentativas acabaram! Você perdeu ;-;"
+else
+  puts "Você acertou! *-*"
+end
