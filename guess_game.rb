@@ -22,25 +22,46 @@ def display_word(secret_word, revealed_indexes)
   result
 end
 
+def ask_for_word(answer)
+  loop do
+    print answer
+    input = gets
+
+    raise EOFError, "Entrada encerrada pelo usuário." if input.nil?
+
+    guess = input.chomp.downcase
+
+    raise ArgumentError, "Entrada vazia não é permitida." if guess.empty?
+    raise ArgumentError, "Use apenas letras." unless guess.match?(/\A[a-z]+\z/)
+
+    return guess
+  rescue ArgumentError => e
+    puts "Entrada inválida: #{e.message}"
+  end
+end
+
 puts "A palavra tem #{secret_word.length} letras."
 puts
 
 while guess != secret_word and !out_of_guesses
   
-  if guess_count == 0
-    mensagem = "Digite a palavra: "
-  else
-    mensagem = "Errou! Você ainda tem #{guess_limit - guess_count} tentativa(s). Dica: #{display_word(secret_word, revealed_indexes)}\nDigite a palavra: "
-  end
-
   if guess_count < guess_limit
-    print mensagem
-    guess = gets.chomp()
-    guess_count += 1
+    if guess_count == 0
+      answer = "Digite a palavra: "
+    else
+      answer = "Errou! Você ainda tem #{guess_limit - guess_count} tentativa(s). Dica: #{display_word(secret_word, revealed_indexes)}\nDigite a palavra: "
+    end
 
-    available_indexes = (0...secret_word.length).to_a - revealed_indexes
-    revealed_indexes << available_indexes.sample unless available_indexes.empty?
+    begin
+      guess = ask_for_word(answer)
+      guess_count += 1
 
+      available_indexes = (0...secret_word.length).to_a - revealed_indexes
+      revealed_indexes << available_indexes.sample unless available_indexes.empty?
+    rescue EOFError =>  e
+      puts "\n#{e.message}"
+      exit
+    end
   else
     out_of_guesses = true
   end
